@@ -1,11 +1,9 @@
 var request = new XMLHttpRequest();
-request.open("GET", "data.xml");
+request.open("GET", "data.json");
 request.onreadystatechange = function () {
 	if (request.readyState == 4 && request.status == 200){
-		for (var i = 0; i < 5; i++){				
-			console.log(request.responseXML.getElementsByTagName('name')[i]);
-		}
-
+			var items = JSON.parse(request.responseText);				
+			console.log(items[4].bio);
 	}
 };
 request.send();
