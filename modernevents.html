@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+<script type="text/javascript">
+function addEventHandler(oNode, evt, oFunc, bCaptures)
+{
+	if (typeof(window.event) != "undefined")
+		oNode.attachEvent("on"+evt, oFunc);
+	else
+		oNode.addEventListener(evt, oFunc, bCaptures);
+}
+function getEventTarget(evt) {
+	if (window.event) return window.event.srcElement;
+	else return evt.currentTarget;
+}
+
+function div1Handler(evt) {
+	var e = evt || window.event;
+	var target = getEventTarget(e);
+	var str = "Event handler for div1, target: " + target.getAttribute('id') + " , type: " + e.type;
+	if (e.eventPhase) str+=" ; phase: " + e.eventPhase;
+	alert(str);
+}
+function div2Handler(evt) {
+	var e = evt || window.event;
+	var target = getEventTarget(e);
+	var str = "Event handler for div2, target: " + target.getAttribute('id') + " , type: " + e.type;
+	if (e.eventPhase) str+=" ; phase: " + e.eventPhase;
+	alert(str);
+	//if (e.eventPhase != 1) evt.stopPropagation();
+}
+function div3Handler(evt) {
+	var e = evt || window.event;
+	var target = getEventTarget(e);
+	var str = "Event handler for div3, target: " + target.getAttribute('id') + " , type: " + e.type;
+	if (e.eventPhase) str+=" ; phase: " + e.eventPhase;
+	alert(str);
+	
+}
+function bodyHandler(evt) {
+	var e = evt || window.event;
+	var target = getEventTarget(e);
+	var str = "Event handler for body, target: " + target.getAttribute('id') + " , type: " + e.type;	
+	if (e.eventPhase) str+=" ; phase: " + e.eventPhase;
+	alert(str);
+}
+
+function initializeHandlers() {
+	addEventHandler(document.getElementsByTagName("body")[0],"click",bodyHandler,true);
+	addEventHandler(document.getElementById("div1"),"click",div1Handler,true);
+	addEventHandler(document.getElementById("div2"),"click",div2Handler,true);
+	addEventHandler(document.getElementById("div3"),"click",div3Handler,true);
+	if (!window.event) { //for firefox. Why need the whole dom tree for the bubbling phase? 
+	    //The last parameter is for bubbling phase not caputuring phase, "true" for no bubbling . Seeing is believing. 
+
+	    /*When an event of the given type is dispatched toward the anscentor of the target, 
+        the event will trigger any capturing event listeners of the appropriate type 
+        which exist in the direct line between the top of the document and the event's target. 
+        This upward propagation continues until the top is reached. 
+        A capturing EventListener will not be triggered by events dispatched directly 
+        to the EventTarget upon which it is registered.
+        */
+		addEventHandler(document.getElementsByTagName("body")[0],"click",bodyHandler,false);
+		addEventHandler(document.getElementById("div1"),"click",div1Handler,false);
+		addEventHandler(document.getElementById("div2"),"click",div2Handler,false);
+		addEventHandler(document.getElementById("div3"), "click", div3Handler, false);
+
+	}
+}
+
+addEventHandler(window, "load", function() { initializeHandlers() } );
+</script>
+</head>
+
+<body>
+
+<h1>Using the Modern Event Model</h1>
+<div id="div1" style="border:1px solid #000000;padding:10pt;background:cornsilk">
+	<p>This is div 1</p>
+	<div id="div2" style="border:1px solid #000000;padding:10pt;background:gray">
+		<p>This is div 2</p>	
+		<div id="div3" style="border:1px solid #000000;padding:10pt; background:lightBlue">
+			<p>This is div 3</p>
+		</div>
+	</div>
+</div>
+
+
+</body>
+
+</html>
