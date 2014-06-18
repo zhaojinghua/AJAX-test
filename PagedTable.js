@@ -30,29 +30,27 @@ function lastPage() {
     pasteNewPage();
 }
 function nextPage() {
-    if (endIndex < numTR) {
-        console.log(startIndex, endIndex);
-        startIndex += 10;
-        endIndex += 10;
-        copyFromOrignal(startIndex, endIndex);
-        clearOldPage()
-        pasteNewPage();
-    }
+    //console.log(startIndex, endIndex);
+    //console.log(startIndex);
+    startIndex = startIndexHandler(startIndex, true);
+    //console.log(startIndex);
+    endIndex = endIndexHandler(endIndex, true);
+    copyFromOrignal(startIndex, endIndex);
+    clearOldPage()
+    pasteNewPage();
 }
 function previousPage() {
-    if (startIndex >= 10) {
-        startIndex -= 10;
-        endIndex -= 10;
-        copyFromOrignal(startIndex, endIndex);
-        clearOldPage()
-        pasteNewPage();
-    }
+    startIndex = startIndexHandler(startIndex, false);
+    endIndex = endIndexHandler(endIndex, false);
+    copyFromOrignal(startIndex, endIndex);
+    clearOldPage()
+    pasteNewPage();
 }
 
 function copyFromOrignal(a, b) {
     var j = 0;
     for (var i = a; i < b; i++) {
-        console.log(i);
+        //console.log(i);
         tempTR[j++] = cloneTableRows[i].cloneNode(true);
     }
     //console.log(j);
@@ -64,11 +62,54 @@ function clearOldPage() {
 
 function pasteNewPage() {
     var newBody = document.createElement("tbody");
-    for (var i = 0; i < numToDisplay; i++) {
+    console.log(endIndex);
+    var len = endIndex - startIndex;
+    for (var i = 0; i < len; i++) {
         newBody.appendChild(tempTR[i]);
     }
     table.appendChild(newBody);
     oldChild = newBody;
+}
+
+function startIndexHandler(a, incr) {
+    if (incr) {
+        if (a == 0) { return 10; }
+        if (a == 10) { return 20; }
+        if (a == 20) { return 30; }
+        if (a == 30) { return 40; }
+        if (a == 40) { return 50; }
+        if (a == 50) { return 50;}
+    }
+    if (!incr) {
+        if (a == 0) { return 0; }
+        if (a == 10) { return 0; }
+        if (a == 20) { return 10; }
+        if (a == 30) { return 20; }
+        if (a == 40) { return 30; }
+        if (a == 50) { return 40; }
+        if (a == 60) { return 50; }
+    }
+}
+
+function endIndexHandler(a, incr) {
+    if (incr) {
+        if (a == 10) { return 20; }
+        if (a == 20) { return 30; }
+        if (a == 30) { return 40; }
+        if (a == 40) { return 50; }
+        if (a == 50) { return numTR };
+        if (a == numTR) { return numTR };
+
+    }
+    if (!incr) {
+        if (a == 10) { return 10; }
+        if (a == 20) { return 10; }
+        if (a == 30) { return 20; }
+        if (a == 40) { return 30; }
+        if (a == 50) { return 40; }
+        if (a == numTR) { return 50 };
+
+    }
 }
 
 window.addEventListener("load", firstPage);
