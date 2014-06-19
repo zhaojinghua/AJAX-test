@@ -1,5 +1,4 @@
-﻿
-.style5 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; }
+﻿.style5 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; }
 .TableTitle { font-size: 24px }
 table { width:100% }
 table, td, th {
@@ -8,4 +7,13 @@ table, td, th {
 
 tr:nth-child(even) {background: rgb(203, 100, 300);}
 
-td:nth-child(5n+0) {background: rgb(100, 100, 100);}
+td:nth-child(5n+0) {background: rgb(100, 100, 100);}tr {
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+tr:hover {
+	background-color: #6F0;
+}
