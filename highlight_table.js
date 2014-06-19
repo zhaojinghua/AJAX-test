@@ -22,7 +22,7 @@ function findIndex(obj) {
 
 function striped() {
     for (var i = 0; i < rowNum; i++) {
-        tableRow[i].bgColor = (i % 2 == 0) ? "Linen" : "white";
+        tableRow[i].bgColor = (i % 2 == 0) ? "linen" : "white";
     }
 }
 

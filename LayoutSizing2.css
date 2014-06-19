@@ -88,11 +88,10 @@
 	font-size: 12pt;
 	position: relative;
 	width: 100%;
+	margin: 0 auto;
 }
 
 .bodyMed #left_col {
-	width: 100px;
-	position: absolute;
 	left: 0px;
 	top: 0px;
 }
