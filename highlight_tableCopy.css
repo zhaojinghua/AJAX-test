@@ -1,0 +1,11 @@
+﻿
+.style5 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; }
+.TableTitle { font-size: 24px }
+table { width:100% }
+table, td, th {
+	border: 1px solid #dddddd;
+}
+
+tr:nth-child(even) {background: rgb(203, 100, 300);}
+
+td:nth-child(5n+0) {background: rgb(100, 100, 100);}
